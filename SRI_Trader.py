@@ -1,22 +1,28 @@
 import pandas as pd
 import pandas_ta as ta
 import GetData as gd
+from tabulate import tabulate
 
-# https://www.alpharithms.com/relative-strength-index-rsi-in-python-470209/
 
-l = 14
+# Based on information found here: https://www.alpharithms.com/relative-strength-index-rsi-in-python-470209/
 
-dataSet = gd.GetData('BTC-USD', '1d', '5m')
+ticker = input("Enter ticker or leave blank for 'BTC-USD'):")
 
-# Calculate the RSI via pandas_ta
+if ticker == "":
+    ticker = 'BTC-USD' 
+
+dataSet = gd.GetData(ticker, '1d', '5m')
+
+# Calculate the RSI
 dataSet.ta.rsi(
     close='Close',
-    length=l,
+    length=14,
     append=True, 
     signal_indicators=True, 
     xa=60, 
     xb=40)
 
+# Get Python to show all rows when using print
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
@@ -25,14 +31,20 @@ pd.set_option('display.max_colwidth', None)
 # View the result
 #print(dataSet)
 
-# Buy or Sell?
+table = [['Period', 'Ticket', 'Action']]
+
+# Calulate action (buy, sell or hodl)
+
 last_row = dataSet.iloc[-1]
+#print(last_row)
 
-print(last_row)
+for row in dataSet.iloc:
+    if row[6] == 1:
+      table.append([row.T.name,ticker, 'Buy'])
+    elif row[7] == 1:
+      table.append([row.T.name,ticker,'Sell'])
+    else:
+      table.append([row.T.name,ticker,'Hodl'])
 
-if last_row[6] == 1:
-  print("Buy")
-elif last_row[7] == 1:
-  print("Sell")
-else:
-  print("Do Nothing")
+print(tabulate(table))
+
