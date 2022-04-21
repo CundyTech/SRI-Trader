@@ -3,4 +3,5 @@ Stock trader that uses the Relative Strength Index (RSI) indicator to decide to 
 
 # References
 
-This project is bassed off infomation found here: https://www.alpharithms.com/relative-strength-index-rsi-in-python-470209/
+This project is based off infomation found here:
+https://www.alpharithms.com/relative-strength-index-rsi-in-python-470209/
