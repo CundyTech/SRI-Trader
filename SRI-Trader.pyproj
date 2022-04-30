@@ -11,6 +11,9 @@
     <OutputPath>.</OutputPath>
     <Name>SRI-Trader</Name>
     <RootNamespace>SRI-Trader</RootNamespace>
+    <TestFramework>unittest</TestFramework>
+    <UnitTestPattern>*.py</UnitTestPattern>
+    <UnitTestRootDirectory>Tests</UnitTestRootDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,8 +28,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SRI_Trader.py" />
+    <Compile Include="Tests\test_Validation.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Tests\" />
     <Folder Include="Test Data\" />
   </ItemGroup>
   <ItemGroup>
